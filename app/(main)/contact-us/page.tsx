@@ -1,9 +1,10 @@
 import BreadCrumb from "@/app/components/sections/BreadCrumb";
+import ContactSection from "@/app/components/sections/common/ContactSection";
 import TeamSlider from "@/app/components/sections/TeamSlider";
 
 export const metadata = {
-  title: "Contact",
-  description: "PLC automation spare parts supplier",
+  title: "Contact Us - Get in Touch for Industrial Solutions",
+  description: "Reach out to PLC Automation Group through our contact page. Connect with our experts to discuss tailored industrial solutions that enhance productivity and efficiency. Let's transform your processes together.",
 };
 
 export default function ContactUs() {
@@ -18,76 +19,76 @@ export default function ContactUs() {
         ]}
       />
       <section className="address-section">
-  <div className="section-inner">
-    <div className="section-header">
-      <h2 className="section-title">Our Offices</h2>
-      <p className="section-sub">
-        We operate globally with strong presence across key regions.
-      </p>
-    </div>
+        <div className="section-inner">
+          <div className="section-header">
+            <h2 className="section-title">Our Offices</h2>
+            <p className="section-sub">
+              We operate globally with strong presence across key regions.
+            </p>
+          </div>
 
-    <div className="address-grid">
+          <div className="address-grid">
 
-      {/* Singapore */}
-      <div className="address-card">
-        <h3>🇸🇬 Singapore (HQ)</h3>
-        <p>10 Anson Road, #12-14</p>
-        <p>International Plaza</p>
-        <p>Singapore 079903</p>
+            {/* Singapore */}
+            <div className="address-card">
+              <h3>🇸🇬 Singapore (HQ)</h3>
+              <p>10 Anson Road, #12-14</p>
+              <p>International Plaza</p>
+              <p>Singapore 079903</p>
 
-        <div className="address-contact">
-          <span>📞 +65 1234 5678</span>
-          <span>✉️ sales@plcautomationgroup.com</span>
+              <div className="address-contact">
+                <span>📞 +65 1234 5678</span>
+                <span>✉️ sales@plcautomationgroup.com</span>
+              </div>
+
+              <a href="#" className="map-link">View on Map →</a>
+            </div>
+
+            {/* Australia */}
+            <div className="address-card">
+              <h3>🇦🇺 Australia</h3>
+              <p>Level 5, 115 Pitt Street</p>
+              <p>Sydney NSW 2000</p>
+
+              <div className="address-contact">
+                <span>📞 +61 2 1234 5678</span>
+                <span>✉️ au@plcautomationgroup.com</span>
+              </div>
+
+              <a href="#" className="map-link">View on Map →</a>
+            </div>
+
+            {/* Europe */}
+            <div className="address-card">
+              <h3>🇪🇺 Europe</h3>
+              <p>Friedrichstraße 123</p>
+              <p>10117 Berlin, Germany</p>
+
+              <div className="address-contact">
+                <span>📞 +49 30 123456</span>
+                <span>✉️ eu@plcautomationgroup.com</span>
+              </div>
+
+              <a href="#" className="map-link">View on Map →</a>
+            </div>
+
+            {/* Middle East */}
+            <div className="address-card">
+              <h3>🇦🇪 Middle East</h3>
+              <p>Sheikh Zayed Road</p>
+              <p>Dubai, UAE</p>
+
+              <div className="address-contact">
+                <span>📞 +971 4 123 4567</span>
+                <span>✉️ me@plcautomationgroup.com</span>
+              </div>
+
+              <a href="#" className="map-link">View on Map →</a>
+            </div>
+
+          </div>
         </div>
-
-        <a href="#" className="map-link">View on Map →</a>
-      </div>
-
-      {/* Australia */}
-      <div className="address-card">
-        <h3>🇦🇺 Australia</h3>
-        <p>Level 5, 115 Pitt Street</p>
-        <p>Sydney NSW 2000</p>
-
-        <div className="address-contact">
-          <span>📞 +61 2 1234 5678</span>
-          <span>✉️ au@plcautomationgroup.com</span>
-        </div>
-
-        <a href="#" className="map-link">View on Map →</a>
-      </div>
-
-      {/* Europe */}
-      <div className="address-card">
-        <h3>🇪🇺 Europe</h3>
-        <p>Friedrichstraße 123</p>
-        <p>10117 Berlin, Germany</p>
-
-        <div className="address-contact">
-          <span>📞 +49 30 123456</span>
-          <span>✉️ eu@plcautomationgroup.com</span>
-        </div>
-
-        <a href="#" className="map-link">View on Map →</a>
-      </div>
-
-      {/* Middle East */}
-      <div className="address-card">
-        <h3>🇦🇪 Middle East</h3>
-        <p>Sheikh Zayed Road</p>
-        <p>Dubai, UAE</p>
-
-        <div className="address-contact">
-          <span>📞 +971 4 123 4567</span>
-          <span>✉️ me@plcautomationgroup.com</span>
-        </div>
-
-        <a href="#" className="map-link">View on Map →</a>
-      </div>
-
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* CONTACT SECTION */}
       <section className="contact-section">
@@ -97,7 +98,7 @@ export default function ContactUs() {
           <div className="contact-info">
             <h2>Get in Touch</h2>
             <p>
-              Need help sourcing automation parts or have a question? 
+              Need help sourcing automation parts or have a question?
               Our team is ready to assist you.
             </p>
 
@@ -161,23 +162,9 @@ export default function ContactUs() {
         ></iframe>
       </section>
 
-      
 
-      {/* CTA */}
-      <section className="cta-section">
-        <div style={{ maxWidth: "700px", margin: "auto" }}>
-          <h2>Need Urgent Support?</h2>
-          <p>We respond within hours for critical requests</p>
-          <div className="cta-btns">
-            <a href="#" className="btn-white">
-              📋 Submit Part Request
-            </a>
-            <a href="#" className="btn-outline-white">
-              📞 Call Now
-            </a>
-          </div>
-        </div>
-      </section>
+
+      <ContactSection />
     </main>
   );
 }

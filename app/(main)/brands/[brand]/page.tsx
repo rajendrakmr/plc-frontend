@@ -5,6 +5,7 @@ import BreadCrumb from "@/app/components/sections/BreadCrumb";
 import '@/app/components/css/product.css'
 import FaqSection from "@/app/components/sections/FaqSection";
 import ProductListSection from "@/app/components/sections/ProductListSection";
+import ContactSection from "@/app/components/sections/common/ContactSection";
 export const metadata = {
     title: "FAQ",
     description: "PLC automation spare parts supplier",
@@ -32,24 +33,7 @@ export default function Brands({ params }: Props) {
 
             <ProductListSection />
 
-            <section className="cta-section">
-                <div style={{ 'maxWidth': '700px', 'margin': 'auto' }}>
-                    <h2>
-                        Can't Find Your Part? We'll Source It.
-                    </h2>
-                    <p>
-                        We're here when you need us
-                    </p>
-                    <div className="cta-btns">
-                        <a href="#" className="btn-white">
-                            📋 Submit Part Request
-                        </a>
-                        <a href="#" className="btn-outline-white">
-                            📞 Call Our Experts
-                        </a>
-                    </div>
-                </div>
-            </section>
+              <ContactSection />
         </main>
     );
 }

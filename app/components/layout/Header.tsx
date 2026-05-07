@@ -30,17 +30,17 @@ export default function Header() {
       <div className="topbar">
         <div className="topbar-inner">
           <div className="topbar-left">
-            <span>📞 +91 98765 43210</span>
-            <span>✉ info@plcautomation.in</span>
+            <span>📞 <Link href="tel:+65 6980 8259 ,HP: +65 8950 7034">+65 6980 8259 ,HP: +65 8950 7034</Link></span>
+            <span>✉ <Link href="mailto:sales@plcautomat.com">sales@plcautomat.com</Link></span>
             <span>🕐 Mon–Sat: 9AM–6PM IST</span>
           </div>
           <div className="topbar-right">
             <a href="#">🌐</a>
             <div className="social-icons">
-              <a href="#"><i className="fab fa-instagram"></i></a>
-              <a href="#"><i className="fab fa-linkedin-in"></i></a>
-              <a href="#"><i className="fab fa-youtube"></i></a>
-              <a href="#"><i className="fab fa-facebook-f"></i></a>
+              <Link href="https://www.facebook.com/plcautomat"><i className="fab fa-facebook-f"></i></Link>
+              <Link href="https://www.linkedin.com/company/78855232"><i className="fab fa-linkedin-in"></i></Link>
+              <Link href="https://www.youtube.com/@salesplcautomationpteltd"><i className="fab fa-youtube"></i></Link>
+              <Link href="https://twitter.com/plc_ltd"><i className="fab fa-twitter"></i></Link>
             </div>
           </div>
         </div>

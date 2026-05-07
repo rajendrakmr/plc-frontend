@@ -1,12 +1,10 @@
 
-import BlogSection from "@/app/components/sections/BlogSection";
 import BreadCrumb from "@/app/components/sections/BreadCrumb";
-// import TeamSlider from "@/app/components/sections/TeamSlider";
-// import '@/app/(main)/css/blogs.css'
+
 import FaqSection from "@/app/components/sections/FaqSection";
 export const metadata = {
-    title: "FAQ",
-    description: "PLC automation spare parts supplier",
+    title: "FAQ - Answers About Our Automation System",
+    description: "Get answers to common questions about our automation system at PLC Automation Group. Learn how our innovative solutions can revolutionize your industrial processes. FAQ about our automation system.",
 };
 
 export default function FAQ() {

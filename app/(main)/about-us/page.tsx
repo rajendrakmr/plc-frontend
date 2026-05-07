@@ -1,14 +1,14 @@
 
 import SplitContentSection from "@/app/components/sections/about/SplitContentSection";
 import BreadCrumb from "@/app/components/sections/BreadCrumb";
-import BrandSlider from "@/app/components/sections/common/BrandSlider";
-import HeroSection from "@/app/components/sections/HeroSection";
+import ContactSection from "@/app/components/sections/common/ContactSection";
+import PartnerSlider from "@/app/components/sections/common/PartnerSlider";
 import TeamSlider from "@/app/components/sections/TeamSlider";
 import Image from "next/image";
 
 export const metadata = {
-  title: "Home",
-  description: "PLC automation spare parts supplier",
+  title: "About PLC Automation Group - Innovating Industrial Solutions",
+  description: "Discover PLC Automation Group's expertise in industrial automation. We specialize in cutting-edge solutions for enhanced productivity and efficiency. Learn more about our journey today.",
 };
 
 export default function AboutUs() {
@@ -210,27 +210,10 @@ export default function AboutUs() {
         </div>
       </section>
 
-        <BrandSlider />
+      <PartnerSlider />
 
       <TeamSlider />
-      <section className="cta-section">
-        <div style={{ 'maxWidth': '700px', 'margin': 'auto' }}>
-          <h2>
-            Can't Find Your Part? We'll Source It.
-          </h2>
-          <p>
-            We're here when you need us
-          </p>
-          <div className="cta-btns">
-            <a href="#" className="btn-white">
-              📋 Submit Part Request
-            </a>
-            <a href="#" className="btn-outline-white">
-              📞 Call Our Experts
-            </a>
-          </div>
-        </div>
-      </section>
+      <ContactSection />
     </main>
   );
 }
