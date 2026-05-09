@@ -1,24 +1,7 @@
 "use client";
 import { useState } from "react";
-
-type Product = {
-  id: number;
-  name: string;
-  brand: string;
-  image: string;
-  price: string;
-};
-
-const productsData: Product[] = [
-  { id: 1, name: "Siemens S7 PLC Module", brand: "Siemens", image: "/assets/products/1712807362.jpg", price: "$1200" },
-  { id: 2, name: "ABB Drive Controller", brand: "ABB", image: "/assets/products/1713098462.jpg", price: "$980" },
-  { id: 3, name: "Allen Bradley CompactLogix", brand: "Allen Bradley", image: "/assets/products/1713101180.jpg", price: "$1500" },
-  { id: 4, name: "Schneider PLC Unit", brand: "Schneider", image: "/assets/products/1713337514.jpg", price: "$870" },
-  { id: 5, name: "Omron PLC Unit", brand: "Omron", image: "/assets/products/1713337514.jpg", price: "$760" },
-  { id: 6, name: "Fanuc Controller", brand: "Fanuc", image: "/assets/products/1713337514.jpg", price: "$1320" },
-  { id: 7, name: "Mitsubishi PLC", brand: "Mitsubishi", image: "/assets/products/1713337514.jpg", price: "$990" },
-  { id: 8, name: "Yaskawa Drive", brand: "Yaskawa", image: "/assets/products/1713337514.jpg", price: "$840" },
-];
+import CardProductItem from "./common/CardProductItem";
+import { catalogProducts } from "@/app/data/content";
 
 export default function ProductSection() {
   const [selectedBrand, setSelectedBrand] = useState<string>("All");
@@ -28,8 +11,8 @@ export default function ProductSection() {
 
   const filteredProducts =
     selectedBrand === "All"
-      ? productsData
-      : productsData.filter((p) => p.brand === selectedBrand);
+      ? catalogProducts
+      : catalogProducts.filter((p) => p.brand === selectedBrand);
 
   const indexOfLast = currentPage * productsPerPage;
   const indexOfFirst = indexOfLast - productsPerPage;
@@ -71,21 +54,9 @@ export default function ProductSection() {
         {/* PRODUCTS */}
         <div className="product-list">
           <div className="product-grid">
-            {currentProducts.map((product) => (
-              <div key={product.id} className="product-card">
-                <div
-                  className="product-img"
-                  style={{ backgroundImage: `url(${product.image})` }}
-                />
 
-                <div className="product-content">
-                  <span className="product-brand">{product.brand}</span>
-                  <h4>{product.name}</h4>
-                  <p className="price">{product.price}</p>
-                  <button className="view-btn">View Details →</button>
-                </div>
-              </div>
-            ))}
+            <CardProductItem products={catalogProducts} />
+
           </div>
 
           {/* PAGINATION */}

@@ -1,11 +1,8 @@
 
-import BlogSection from "@/app/components/sections/BlogSection";
-import BreadCrumb from "@/app/components/sections/BreadCrumb";
-// import TeamSlider from "@/app/components/sections/TeamSlider";
+import BreadCrumb from "@/app/components/sections/BreadCrumb"; 
 import '@/app/components/css/product.css'
-import FaqSection from "@/app/components/sections/FaqSection";
-import ProductListSection from "@/app/components/sections/ProductListSection";
 import ContactSection from "@/app/components/sections/common/ContactSection";
+import BrandCategory from "@/app/components/sections/common/BrandCategory";
 export const metadata = {
     title: "FAQ",
     description: "PLC automation spare parts supplier",
@@ -31,9 +28,9 @@ export default function Brands({ params }: Props) {
             />
 
 
-            <ProductListSection />
+            <BrandCategory />
 
-              <ContactSection />
+            <ContactSection />
         </main>
     );
 }

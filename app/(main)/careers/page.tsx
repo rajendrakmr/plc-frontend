@@ -26,10 +26,7 @@ export default function CareersPage() {
               Open Positions
             </div>
             <h1>
-              Build your career in
-              <em>
-                industrial automation
-              </em>
+              Build your career in  industrial automation 
               with PLC Automation
             </h1>
             <p>

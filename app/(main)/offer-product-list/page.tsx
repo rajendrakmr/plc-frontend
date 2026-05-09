@@ -1,6 +1,7 @@
  
 import BreadCrumb from "@/app/components/sections/BreadCrumb";
-import ProductSection from "@/app/components/sections/ProductSection";
+import ProductCategory from "@/app/components/sections/common/ProductCategory";
+// import ProductCategory from "@/app/components/sections/ProductSection";
  
 export const metadata = {
     title: "Exclusive Offers on PLC Automation Group Products | Siemens, Allen-Bradley, ABB, Danfoss, Honeywell & B&R | Industrial Spare Parts Deals",
@@ -20,7 +21,7 @@ export default function OfferProductList() {
                 ]}
             />
 
-            <ProductSection /> 
+            <ProductCategory /> 
         </main>
     );
 }

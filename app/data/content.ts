@@ -9,11 +9,13 @@ export type ManufacturerCard = {
 };
 
 export type ProductItem = {
+  id?: number;
   name: string;
   brand: string;
   status: "In Stock" | "Limited" | "Obsolete";
   partNumber: string;
   description: string;
+  image?: string;
 };
 
 export type BlogPost = {
@@ -48,7 +50,7 @@ export type Brands = {
 };
 
 export const brands: Brands[] = [
- { name: "Mitsubishi", url: "/brands/mitsubishi" },
+  { name: "Mitsubishi", url: "/brands/mitsubishi" },
   { name: "Allen Bradley", url: "/brands/allen-bradley" },
   { name: "Siemens", url: "/brands/siemens" },
   { name: "Schneider", url: "/brands/schneider" },
@@ -76,12 +78,17 @@ export const brands: Brands[] = [
 ];
 
 
+export const legals: Brands[] = [
+  { name: "Privacy Policy", url: "/privacy-policy" },
+  { name: "Term & Conditions", url: "/terms-conditions" },
+  { name: "Disclaimer", url: "/disclaimer" },
+];
 
 export const resources: Brands[] = [
- { name: "About Us", url: "/about-us" },
+  { name: "About Us", url: "/about-us" },
   { name: "Contact Us", url: "/contact-us" },
   { name: "Careers", url: "/careers" },
-  { name: "Blogs", url: "/blogs" }, 
+  { name: "Blogs", url: "/blogs" },
 ];
 export const manufacturers: ManufacturerCard[] = [
   { name: "Siemens Automation", specialty: "PLCs, drives, and process control systems." },
@@ -91,70 +98,96 @@ export const manufacturers: ManufacturerCard[] = [
   { name: "FANUC Corporation", specialty: "CNC systems, industrial robotics, and servo controls." },
   { name: "Mitsubishi Electric", specialty: "Factory automation components and HMIs." },
 ];
-
 export const catalogProducts: ProductItem[] = [
   {
+    id: 1,
     name: "SIMATIC S7-1500 CPU",
     brand: "Siemens",
     status: "In Stock",
     partNumber: "6ES7515-2AM02-0AB0",
-    description: "Advanced PLC CPU for high-speed discrete and process automation.",
+    image: "/assets/products/1712807362.jpg",
+    description:
+      "Advanced PLC CPU for high-speed discrete and process automation.",
   },
   {
+    id: 2,
     name: "Allen-Bradley CompactLogix PLC",
     brand: "Rockwell",
     status: "Limited",
     partNumber: "1769-L36ERM",
-    description: "Mid-range programmable controller for machine-level control.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Mid-range programmable controller for machine-level control.",
   },
   {
+    id: 3,
     name: "ABB ACS880 Industrial Drive",
     brand: "ABB",
     status: "In Stock",
     partNumber: "ACS880-01-145A-3",
-    description: "General purpose AC drive with integrated safety and diagnostics.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "General purpose AC drive with integrated safety and diagnostics.",
   },
   {
+    id: 4,
     name: "Modicon M340 Processor Module",
     brand: "Schneider",
     status: "Obsolete",
     partNumber: "BMXP342030",
-    description: "Legacy PLC processor module with Ethernet communications.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Legacy PLC processor module with Ethernet communications.",
   },
   {
+    id: 5,
     name: "FANUC Alpha i-Series Servo Motor",
     brand: "FANUC",
     status: "In Stock",
     partNumber: "A06B-0266-B200",
-    description: "Precision servo motor for CNC and robotics applications.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Precision servo motor for CNC and robotics applications.",
   },
   {
+    id: 6,
     name: "Siemens SINAMICS G120 Control Unit",
     brand: "Siemens",
     status: "Limited",
     partNumber: "6SL3244-0BB13-1FA0",
-    description: "Modular drive control unit for conveyor and pump systems.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Modular drive control unit for conveyor and pump systems.",
   },
   {
+    id: 7,
     name: "Allen-Bradley PanelView Plus 7",
     brand: "Rockwell",
     status: "In Stock",
     partNumber: "2711P-T10C22D9P",
-    description: "10-inch HMI terminal for modern operator interfaces.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "10-inch HMI terminal for modern operator interfaces.",
   },
   {
+    id: 8,
     name: "ABB S800 I/O Module",
     brand: "ABB",
     status: "In Stock",
     partNumber: "3BSE008510R1",
-    description: "Distributed I/O module for process and factory automation.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Distributed I/O module for process and factory automation.",
   },
   {
+    id: 9,
     name: "Schneider Magelis HMI",
     brand: "Schneider",
     status: "Obsolete",
     partNumber: "HMIGTO5310",
-    description: "Legacy touchscreen HMI for machine visualization.",
+    image: "/assets/products/1713098462.jpg",
+    description:
+      "Legacy touchscreen HMI for machine visualization.",
   },
 ];
 
@@ -162,136 +195,97 @@ export const catalogProductPages: ProductItem[][] = [
   catalogProducts,
   [
     {
+      id: 10,
       name: "Mitsubishi FX5U CPU Module",
       brand: "Mitsubishi",
       status: "In Stock",
       partNumber: "FX5U-32MR/ES",
-      description: "Compact PLC with built-in Ethernet for small automation lines.",
+      image: "/assets/products/1712807362.jpg",
+      description:
+        "Compact PLC with built-in Ethernet for small automation lines.",
     },
     {
+      id: 11,
       name: "Yaskawa Sigma-7 Servo Pack",
       brand: "Yaskawa",
       status: "Limited",
       partNumber: "SGD7S-2R8A00A",
-      description: "Servo amplifier for high-precision motion control systems.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Servo amplifier for high-precision motion control systems.",
     },
     {
+      id: 12,
       name: "Omron NX102 CPU Unit",
       brand: "Omron",
       status: "In Stock",
       partNumber: "NX102-9020",
-      description: "Machine automation controller with synchronized motion.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Machine automation controller with synchronized motion.",
     },
     {
+      id: 13,
       name: "B&R X20 Digital Input Module",
       brand: "B&R",
       status: "In Stock",
       partNumber: "X20DI9371",
-      description: "High-density input module for modular PLC architectures.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "High-density input module for modular PLC architectures.",
     },
     {
+      id: 14,
       name: "GE RX3i Power Supply",
       brand: "GE",
       status: "Limited",
       partNumber: "IC695PSD040",
-      description: "Reliable system power supply for RX3i PAC racks.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Reliable system power supply for RX3i PAC racks.",
     },
     {
+      id: 15,
       name: "Honeywell C300 Controller",
       brand: "Honeywell",
       status: "Obsolete",
       partNumber: "CC-PCNT01",
-      description: "Process controller module for Experion control platforms.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Process controller module for Experion control platforms.",
     },
     {
+      id: 16,
       name: "Bosch Rexroth IndraDrive Cs",
       brand: "Bosch Rexroth",
       status: "In Stock",
       partNumber: "HCS02.1E-W0054",
-      description: "Servo drive for precise spindle and axis applications.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Servo drive for precise spindle and axis applications.",
     },
     {
+      id: 17,
       name: "Delta ASDA-A2 Servo Drive",
       brand: "Delta",
       status: "In Stock",
       partNumber: "ASD-A2-2023-M",
-      description: "Cost-effective AC servo drive for packaging equipment.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "Cost-effective AC servo drive for packaging equipment.",
     },
     {
+      id: 18,
       name: "Keyence KV-8000 Controller",
       brand: "Keyence",
       status: "Limited",
       partNumber: "KV-8000",
-      description: "High-performance PLC for rapid I/O and traceability data.",
-    },
-  ],
-  [
-    {
-      name: "Pilz PNOZmulti 2 Base Unit",
-      brand: "Pilz",
-      status: "In Stock",
-      partNumber: "772100",
-      description: "Configurable safety controller for machine protection.",
-    },
-    {
-      name: "Beckhoff EtherCAT Coupler",
-      brand: "Beckhoff",
-      status: "In Stock",
-      partNumber: "EK1100",
-      description: "EtherCAT bus coupler for modular terminal communication.",
-    },
-    {
-      name: "WAGO 750-880 Controller",
-      brand: "WAGO",
-      status: "Limited",
-      partNumber: "750-880",
-      description: "Programmable fieldbus controller for distributed systems.",
-    },
-    {
-      name: "Fuji Frenic-MEGA Drive",
-      brand: "Fuji Electric",
-      status: "In Stock",
-      partNumber: "FRN0059E2S-4",
-      description: "Heavy-duty inverter drive for pumps and fans.",
-    },
-    {
-      name: "Eaton XV-102 HMI",
-      brand: "Eaton",
-      status: "In Stock",
-      partNumber: "XV-102-D8-35TVRC-10",
-      description: "Compact touchscreen HMI for machine interface panels.",
-    },
-    {
-      name: "Lenze i550 Inverter",
-      brand: "Lenze",
-      status: "Limited",
-      partNumber: "i550-C7.5/400-3",
-      description: "Variable frequency drive designed for modular machinery.",
-    },
-    {
-      name: "Phoenix Contact PLCnext AXC F 2152",
-      brand: "Phoenix Contact",
-      status: "In Stock",
-      partNumber: "2404267",
-      description: "Open Linux-based controller for Industry 4.0 projects.",
-    },
-    {
-      name: "Toshiba VF-S15 Drive",
-      brand: "Toshiba",
-      status: "Obsolete",
-      partNumber: "VFS15-2037PL",
-      description: "Legacy compact inverter commonly used in retrofit projects.",
-    },
-    {
-      name: "Kollmorgen AKD Servo Drive",
-      brand: "Kollmorgen",
-      status: "In Stock",
-      partNumber: "AKD-P00306",
-      description: "Ethernet-ready servo drive for coordinated motion control.",
+      image: "/assets/products/1713098462.jpg",
+      description:
+        "High-performance PLC for rapid I/O and traceability data.",
     },
   ],
 ];
-
 export const blogPosts: BlogPost[] = [
   {
     title: "Optimizing Your Supply Chain for Automation Parts in 2026",

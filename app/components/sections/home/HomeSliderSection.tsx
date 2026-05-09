@@ -75,7 +75,7 @@ const SLIDES: Slide[] = [
     },
 ];
 
-const AUTO_PLAY_MS = 5500;
+const AUTO_PLAY_MS = 1500;
 
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function HomeSliderSection() {
@@ -166,9 +166,8 @@ export default function HomeSliderSection() {
  
 
                 <h1 className={s.hs__heading}>
-                    {slide.title}&nbsp;
-                    <em className={s.hs__headingEm}>{slide.titleEm}</em>
-                    {slide.titleAfter && <>&nbsp;{slide.titleAfter}</>}
+                    {slide.title} {slide.titleEm} {slide.titleAfter}
+                    
                 </h1>
 
                 {/* <p className={s.hs__subtitle}>{slide.subtitle}</p> */}

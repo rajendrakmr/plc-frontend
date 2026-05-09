@@ -1,16 +1,21 @@
-# ---------- Base ----------
-FROM node:20-alpine AS base
-WORKDIR /app
+# ═══════════════════════════════
+# 1. Dependencies
+# ═══════════════════════════════
+FROM node:20-alpine AS deps
 
-# ---------- Dependencies ----------
-FROM base AS deps
+WORKDIR /app
 
 COPY package.json package-lock.json* ./
 
 RUN npm ci
 
-# ---------- Builder ----------
-FROM base AS builder
+
+# ═══════════════════════════════
+# 2. Builder
+# ═══════════════════════════════
+FROM node:20-alpine AS builder
+
+WORKDIR /app
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -19,7 +24,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN npm run build
 
-# ---------- Runner ----------
+
+# ═══════════════════════════════
+# 3. Runner
+# ═══════════════════════════════
 FROM node:20-alpine AS runner
 
 WORKDIR /app
@@ -27,24 +35,23 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Create non-root user
-RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
+# install nginx
+RUN apk add --no-cache nginx
 
-# Copy standalone build
+# create nginx dirs
+RUN mkdir -p /run/nginx
+
+# copy standalone output
 COPY --from=builder /app/.next/standalone ./
 
-# Copy static assets
+# copy static files
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
 
-# Set permissions
-RUN chown -R nextjs:nextjs /app
+# copy nginx config
+COPY nginx.conf /etc/nginx/nginx.conf
 
-USER nextjs
+EXPOSE 80
 
-EXPOSE 3000
-
-ENV PORT=3000
-ENV HOSTNAME="0.0.0.0"
-
-CMD ["node", "server.js"]
+# start both nginx + nextjs
+CMD sh -c "node server.js & nginx -g 'daemon off;'"

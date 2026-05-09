@@ -1,23 +1,20 @@
 "use client";
 
 
-import { faqByCategory } from "@/app/data/content";
+import { faqByCategory, privacySections } from "@/app/data/content";
 import { useMemo, useState } from "react";
 
 // type Category = "general" | "sourcing" | "shipping" | "warranty";
 
 type Category = keyof typeof faqByCategory;
-export default function FaqSection() {
-    const [activeTab, setActiveTab] = useState<Category>("Ordering");
-    const [openIndex, setOpenIndex] = useState<number | null>(0);
+export default function PrivacyFaqSection() {
 
-    // ✅ Memoized categories
+    const [activeTab, setActiveTab] = useState<Category>("Ordering");
+    const [openIndex, setOpenIndex] = useState<number | null>(0); 
     const categories = useMemo(
         () => Object.keys(faqByCategory) as Category[],
         []
-    );
-
-    // ✅ Memoized active FAQ list
+    ); 
     const activeFaqs = useMemo(
         () => faqByCategory[activeTab],
         [activeTab]
@@ -82,31 +79,17 @@ export default function FaqSection() {
                 {/* RIGHT SIDE */}
                 <div className="faq-right">
 
-                    {/* Tabs */}
-                    <div className="faq-tabs">
-                        {["Ordering", "Shipping", "Parts Authenticity"].map((tab) => (
-                            <button
-                                key={tab}
-                                className={`faq-tab ${activeTab === tab ? "active" : ""}`}
-                                onClick={() => {
-                                    setActiveTab(tab as Category);
-                                    setOpenIndex(0);
-                                }}
-                            >
-                                {tab.charAt(0).toUpperCase() + tab.slice(1)}
-                            </button>
-                        ))}
-                    </div>
+                    
 
                     {/* Accordion */}
                     <div className="faq-group active">
-                        {faqByCategory[activeTab].map((item, i) => (
+                        {privacySections.map((item, i) => (
                             <div
                                 key={i}
                                 className={`faq-item ${openIndex === i ? "active" : ""}`}
                             >
                                 <button className="faq-q" onClick={() => toggleFaq(i)}>
-                                    <span>{item.question}</span>
+                                    <span>{item.heading}</span>
                                     <span className="faq-icon">
                                         {openIndex === i ? "−" : "+"}
                                     </span>
@@ -118,7 +101,7 @@ export default function FaqSection() {
                                         maxHeight: openIndex === i ? "200px" : "0px",
                                     }}
                                 >
-                                    <p>{item.answer}</p>
+                                    <p>{item.body}</p>
                                 </div>
                             </div>
                         ))}

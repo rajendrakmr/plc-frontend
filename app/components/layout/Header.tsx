@@ -32,7 +32,7 @@ export default function Header() {
           <div className="topbar-left">
             <span>📞 <Link href="tel:+65 6980 8259 ,HP: +65 8950 7034">+65 6980 8259 ,HP: +65 8950 7034</Link></span>
             <span>✉ <Link href="mailto:sales@plcautomat.com">sales@plcautomat.com</Link></span>
-            <span>🕐 Mon–Sat: 9AM–6PM IST</span>
+          
           </div>
           <div className="topbar-right">
             <a href="#">🌐</a>
@@ -47,7 +47,7 @@ export default function Header() {
       </div>
       <header>
         <div className="header-inner">
-          <Link className="logo" href="/">
+          <Link className="logo brand-logo" href="/">
             <Image
               src="/assets/clogo.png"
               alt="PLC Automation"

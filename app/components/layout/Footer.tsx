@@ -1,4 +1,4 @@
-import { brands } from "@/app/data/content";
+import { brands ,legals} from "@/app/data/content";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,10 +52,10 @@ export default function Footer() {
         </div>
         <div className="footer-col">
           <h4>
-            Services
+            Legal
           </h4>
           {
-            brands.map((brand, index) => (
+            legals.map((brand, index) => (
               <Link href={brand.url} key={index}>
                 {brand.name}
               </Link>
