@@ -1,5 +1,6 @@
  
 import BreadCrumb from "@/app/components/sections/BreadCrumb";
+import FeatureHighlightsBar from "@/app/components/sections/common/FeatureHighlightsBar";
 import ProductCategory from "@/app/components/sections/common/ProductCategory";
 // import ProductCategory from "@/app/components/sections/ProductSection";
  
@@ -12,14 +13,15 @@ export const metadata = {
 export default function OfferProductList() {
     return (
         <main>
-            <BreadCrumb
+            <FeatureHighlightsBar   />  
+            {/* <BreadCrumb
                 title="All Offer Products"
                 bgImage="/assets/engineering-services-4.jpg"
                 items={[
                     { label: "Home", link: "/" },
                     { label: "All Offer Products" },
                 ]}
-            />
+            /> */}
 
             <ProductCategory /> 
         </main>

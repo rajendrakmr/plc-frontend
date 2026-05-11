@@ -4,6 +4,7 @@ import SplitContentSection from "@/app/components/sections/home/SplitContentSect
 import PartnerSlider from "@/app/components/sections/common/PartnerSlider";
 import ContactSection from "@/app/components/sections/common/ContactSection";
 import LatestBlogSection from "@/app/components/sections/common/LatestBlogSection";
+import HomeSearchSection from "../components/sections/home/HomeSearchSection";
 
 
 export const metadata = {
@@ -16,6 +17,7 @@ export default function OfferProductList() {
     <main>
       <HomeSliderSection />
       <SplitContentSection />
+      <HomeSearchSection />
       <section className="split-section" style={{ background: "var(--navy)" }}>
         <div className="split-inner">
           {/* LEFT: Content */}
@@ -92,9 +94,8 @@ export default function OfferProductList() {
         </div>
       </section>
 
-      <section className="pcag-why">
-        <div className="pcag-why__inner">
-          {/* RIGHT */}
+      {/* <section className="pcag-why">
+        <div className="pcag-why__inner"> 
           <aside className="pcag-why__aside">
             <div className="pcag-card">
 
@@ -119,8 +120,7 @@ export default function OfferProductList() {
 
             </div>
           </aside>
-
-          {/* LEFT */}
+ 
           <div className="pcag-why__content">
             <span className="pcag-why__tag">Why Choose</span>
 
@@ -132,63 +132,55 @@ export default function OfferProductList() {
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">🚀</div>
-                <div>
-                  {/* <strong>Fast Global Delivery</strong> */}
+                <div> 
                   <p>Fast Global Delivery: 24 Hours to 14 Days</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">⚡</div>
-                <div>
-                  {/* <strong>Flexible Lead Times</strong> */}
+                <div> 
                   <p>Rapid, flexible lead times tailored to your needs</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">🌐</div>
-                <div>
-                  {/* <strong>Global Shipping Network</strong> */}
+                <div> 
                   <p>24-hour express delivery to 14-day global shipping</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">✅</div>
-                <div>
-                  {/* <strong>100% Authentic Parts</strong> */}
+                <div> 
                   <p>100% Authentic Parts</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">🏭</div>
-                <div>
-                  {/* <strong>Obsolete Parts</strong> */}
+                <div> 
                   <p>Only authentic parts, directly sourced from authorized partners</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">🧰</div>
-                <div>
-                  {/* <strong>Hassle-Free Experience</strong> */}
+                <div> 
                   <p>Specialize in obsolete parts: your cost-effective solution for replacing discontinued or hard-to-find parts / equipment</p>
                 </div>
               </div>
 
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">👍</div>
-                <div>
-                  {/* <strong>Hassle-Free Experience</strong> */}
+                <div> 
                   <p>Hassle-Free Experience</p>
                 </div>
               </div>
               <div className="pcag-why__item">
                 <div className="pcag-why__icon">🔒</div>
-                <div>
-                  {/* <strong>Hassle-Free Experience</strong> */}
+                <div> 
                   <p>Trusted payment gateways</p>
                 </div>
               </div>
@@ -199,7 +191,7 @@ export default function OfferProductList() {
 
 
         </div>
-      </section>
+      </section> */}
 
 
 

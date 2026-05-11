@@ -142,18 +142,7 @@ export default function CardProduct({ products }: CardProductProps) {
       </div>
 
       <style>{`
-        .pc-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.4rem;
-        }
-
-        @media (max-width: 1100px) {
-          .pc-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 640px) {
-          .pc-grid { grid-template-columns: 1fr; gap: 1rem; }
-        }
+       
       `}</style>
     </>
   );

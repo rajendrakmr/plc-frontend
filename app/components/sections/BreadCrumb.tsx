@@ -13,12 +13,12 @@ const BreadCrumb: React.FC<BreadcrumbProps> = ({ title, items, bgImage }) => {
   return (
     <section
       className="breadcrumb"
-      style={{ backgroundImage: `url(${bgImage})` }}
+      // style={{ backgroundImage: `url(${bgImage})` }}
     >
       <div className="breadcrumb-overlay" />
 
       <div className="breadcrumb-inner">
-        <h1 className="breadcrumb-title">{title}</h1>
+        {/* <h1 className="breadcrumb-title">{title}</h1> */}
 
         <div className="breadcrumb-path">
           {items.map((item, index) => (

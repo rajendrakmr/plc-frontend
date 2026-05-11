@@ -26,7 +26,7 @@ export default function Header() {
   };
   const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
-    <>
+    <div className="site-header-wrap">
       <div className="topbar">
         <div className="topbar-inner">
           <div className="topbar-left">
@@ -218,6 +218,6 @@ export default function Header() {
       </nav>
       {/* HERO */}
 
-    </>
+    </div>
   );
 }

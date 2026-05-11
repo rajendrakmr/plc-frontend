@@ -1,150 +1,340 @@
 "use client";
 
-import { useState } from "react";
-import CardProductItem from "@/app/components/sections/common/CardProductItem";
-import { catalogProducts } from "@/app/data/content";
+import { useMemo, useState } from "react";
+
+import { catalogProductPages } from "@/app/data/content";
+import ProductCard from "@/app/components/sections/common/ProductCard";
+
+/* ───────────────── TYPES ───────────────── */
+
+interface Product {
+    id?: number;
+    name: string;
+    brand: string;
+    price?: string;
+    image?: string;
+    partNumber?: string;
+    description?: string;
+    stock?: "In Stock" | "Limited" | "Obsolete";
+    status?: "In Stock" | "Limited" | "Obsolete";
+
+    category?: string;
+    href?: string;
+}
+
+/* ───────────────── STOCK CONFIG ───────────────── */
+
+const stockConfig = {
+    "In Stock": {
+        label: "In Stock",
+        className: "badge-stock badge-in",
+    },
+    Limited: {
+        label: "Limited",
+        className: "badge-stock badge-limited",
+    },
+    Obsolete: {
+        label: "Obsolete",
+        className: "badge-stock badge-obsolete",
+    },
+};
+
+/* ───────────────── PAGE ───────────────── */
 
 export default function BrandCategory() {
-    const [selectedBrand, setSelectedBrand] = useState("All");
-    const [search, setSearch] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
+    const [manufacturer, setManufacturer] =
+        useState("");
+
+    const [availability, setAvailability] =
+        useState("");
+
+    const [search, setSearch] =
+        useState("");
+
+    const [currentPage, setCurrentPage] =
+        useState(1);
+
+    const [selectedBrand, setSelectedBrand] =
+        useState("All");
 
     const productsPerPage = 6;
 
-    /* UNIQUE BRANDS */
-    const brands = [
-        "All",
-        ...new Set(catalogProducts.map((p) => p.brand)),
-    ];
+    /* ALL PRODUCTS */
+
+    const allProducts: Product[] = useMemo(
+        () => catalogProductPages.flat(),
+        []
+    );
+
+    /* BRANDS */
+
+    const brands = useMemo(
+        () => [
+            "All",
+            ...Array.from(
+                new Set(
+                    allProducts.map(
+                        (p) => p.brand
+                    )
+                )
+            ).sort(),
+        ],
+        [allProducts]
+    );
+
+    /* FILTER OPTIONS */
+
+    const manufacturerOptions = useMemo(
+        () =>
+            Array.from(
+                new Set(
+                    allProducts.map(
+                        (p) => p.brand
+                    )
+                )
+            ).sort(),
+        [allProducts]
+    );
+
+    const availabilityOptions = useMemo(
+        () =>
+            Array.from(
+                new Set(
+                    allProducts
+                        .map(
+                            (p) => p.status
+                        )
+                        .filter(Boolean)
+                )
+            ),
+        [allProducts]
+    );
 
     /* FILTER PRODUCTS */
-    const filteredProducts = catalogProducts.filter((p) => {
 
-        const brandMatch =
-            selectedBrand === "All" ||
-            p.brand === selectedBrand;
+    const filteredProducts = useMemo(() => {
+        const searchTerm =
+            search.trim().toLowerCase();
 
-        const searchMatch =
-            p.name.toLowerCase().includes(search.toLowerCase()) ||
-            p.partNumber.toLowerCase().includes(search.toLowerCase()) ||
-            p.brand.toLowerCase().includes(search.toLowerCase());
+        return allProducts.filter((p) => {
+            /* BRAND FILTER */
 
-        return brandMatch && searchMatch;
-    });
+            const brandMatch =
+                selectedBrand === "All" ||
+                p.brand === selectedBrand;
+
+            /* MANUFACTURER FILTER */
+
+            const manufacturerMatch =
+                !manufacturer ||
+                p.brand === manufacturer;
+
+            /* AVAILABILITY FILTER */
+
+            const availabilityMatch =
+                !availability ||
+                p.status === availability;
+
+            /* SEARCH FILTER */
+
+            const searchMatch =
+                !searchTerm ||
+                p.name
+                    ?.toLowerCase()
+                    .includes(searchTerm) ||
+                p.brand
+                    ?.toLowerCase()
+                    .includes(searchTerm) ||
+                p.partNumber
+                    ?.toLowerCase()
+                    .includes(searchTerm) ||
+                p.description
+                    ?.toLowerCase()
+                    .includes(searchTerm);
+
+            return (
+                brandMatch &&
+                manufacturerMatch &&
+                availabilityMatch &&
+                searchMatch
+            );
+        });
+    }, [
+        allProducts,
+        selectedBrand,
+        manufacturer,
+        availability,
+        search,
+    ]);
 
     /* PAGINATION */
-    const indexOfLast = currentPage * productsPerPage;
-    const indexOfFirst = indexOfLast - productsPerPage;
-
-    const currentProducts = filteredProducts.slice(
-        indexOfFirst,
-        indexOfLast
-    );
 
     const totalPages = Math.ceil(
-        filteredProducts.length / productsPerPage
+        filteredProducts.length /
+            productsPerPage
     );
+
+    const currentProducts = useMemo(() => {
+        const start =
+            (currentPage - 1) *
+            productsPerPage;
+
+        const end =
+            start + productsPerPage;
+
+        return filteredProducts.slice(
+            start,
+            end
+        );
+    }, [
+        filteredProducts,
+        currentPage,
+    ]);
+
+    /* RESET */
+
+    const resetFilters = () => {
+        setManufacturer("");
+        setAvailability("");
+        setSearch("");
+        setSelectedBrand("All");
+        setCurrentPage(1);
+    };
 
     return (
         <section className="product-section">
             <div className="product-container">
-
                 {/* SIDEBAR */}
-                <aside className="brand-sidebar">
 
+                <aside className="brand-sidebar">
                     <h3>Brands</h3>
 
                     <div className="brand-list">
-
                         {brands.map((brand) => {
-
                             const count =
-                                brand === "All"
-                                    ? catalogProducts.length
-                                    : catalogProducts.filter(
-                                        (p) => p.brand === brand
-                                    ).length;
+                                brand ===
+                                "All"
+                                    ? allProducts.length
+                                    : allProducts.filter(
+                                          (p) =>
+                                              p.brand ===
+                                              brand
+                                      ).length;
 
                             return (
                                 <button
                                     key={brand}
-                                    className={`brand-item ${selectedBrand === brand
+                                    className={`brand-item ${
+                                        selectedBrand ===
+                                        brand
                                             ? "active"
                                             : ""
-                                        }`}
+                                    }`}
                                     onClick={() => {
-                                        setSelectedBrand(brand);
-                                        setCurrentPage(1);
+                                        setSelectedBrand(
+                                            brand
+                                        );
+
+                                        setCurrentPage(
+                                            1
+                                        );
                                     }}
                                 >
-                                    <span>{brand}</span>
+                                    <span>
+                                        {brand}
+                                    </span>
 
-                                    <small>{count}</small>
+                                    <small>
+                                        {count}
+                                    </small>
                                 </button>
                             );
                         })}
                     </div>
                 </aside>
 
-                {/* CONTENT */}
-                <div className="product-content">
+                {/* PRODUCT LIST */}
 
-                    {/* TOPBAR */}
+                <div className="product-list">
+                    {/* TOP BAR */}
+
                     <div className="product-topbar">
-
                         {/* SEARCH */}
+
                         <div className="search-box">
                             <input
                                 type="text"
                                 placeholder="Enter Part Number, Manufacturer..."
                                 value={search}
-                                onChange={(e) => {
-                                    setSearch(e.target.value);
-                                    setCurrentPage(1);
+                                onChange={(
+                                    e
+                                ) => {
+                                    setSearch(
+                                        e.target
+                                            .value
+                                    );
+
+                                    setCurrentPage(
+                                        1
+                                    );
                                 }}
                             />
                         </div>
 
                         {/* RESULT COUNT */}
+
                         <div className="product-count">
-                            {filteredProducts.length} parts found
+                            {
+                                filteredProducts.length
+                            }{" "}
+                            parts found
                         </div>
                     </div>
 
                     {/* PRODUCTS */}
-                    <div className="product-grid">
-                        <CardProductItem
-                            products={currentProducts}
-                        />
-                    </div>
+
+                    <ProductCard
+                        products={
+                            currentProducts
+                        }
+                    />
 
                     {/* EMPTY */}
-                    {filteredProducts.length === 0 && (
+
+                    {filteredProducts.length ===
+                        0 && (
                         <div className="no-products">
                             No products found.
                         </div>
                     )}
 
                     {/* PAGINATION */}
+
                     {totalPages > 1 && (
                         <div className="pagination">
-                            {[...Array(totalPages)].map(
-                                (_, i) => (
-                                    <button
-                                        key={i}
-                                        className={
-                                            currentPage === i + 1
-                                                ? "active"
-                                                : ""
-                                        }
-                                        onClick={() =>
-                                            setCurrentPage(i + 1)
-                                        }
-                                    >
-                                        {i + 1}
-                                    </button>
-                                )
-                            )}
+                            {[
+                                ...Array(
+                                    totalPages
+                                ),
+                            ].map((_, i) => (
+                                <button
+                                    key={i}
+                                    className={
+                                        currentPage ===
+                                        i + 1
+                                            ? "active"
+                                            : ""
+                                    }
+                                    onClick={() =>
+                                        setCurrentPage(
+                                            i +
+                                                1
+                                        )
+                                    }
+                                >
+                                    {i + 1}
+                                </button>
+                            ))}
                         </div>
                     )}
                 </div>

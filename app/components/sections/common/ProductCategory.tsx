@@ -1,57 +1,133 @@
 "use client";
 
-import { useState } from "react";
-import CardProductItem from "@/app/components/sections/common/CardProductItem";
-import { catalogProducts } from "@/app/data/content";
+import { useMemo, useState } from "react";
+import Link from "next/link";
+import {
+    Button,
+    CardContent,
+    MenuItem,
+    Stack,
+    TextField,
+    Typography,
+} from "@mui/material";
+
+import { catalogProductPages } from "@/app/data/content";
+import ProductCard from "@/app/components/sections/common/ProductCard";
+/* ───────────────── TYPES ───────────────── */
+
+interface Product {
+    id?: number;
+    name: string;
+    brand: string;
+    price?: string;
+    image?: string;
+    partNumber?: string;
+    description?: string;
+    stock?: "In Stock" | "Limited" | "Obsolete";
+    status?: "In Stock" | "Limited" | "Obsolete";
+ 
+    category?: string;
+    href?: string;
+}
+
+/* ───────────────── STOCK CONFIG ───────────────── */
+
+const stockConfig = {
+    "In Stock": {
+        label: "In Stock",
+        className: "badge-stock badge-in",
+    },
+    "Limited": {
+        label: "Limited",
+        className: "badge-stock badge-limited",
+    },
+    "Obsolete": {
+        label: "Obsolete",
+        className: "badge-stock badge-obsolete",
+    },
+};
+
+/* ───────────────── PAGE ───────────────── */
 
 export default function ProductCategory() {
-    const [selectedBrand, setSelectedBrand] = useState("All");
-    const [selectedAvailability, setSelectedAvailability] = useState("All");
+    const [manufacturer, setManufacturer] = useState("");
+    const [availability, setAvailability] = useState("");
     const [search, setSearch] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
 
     const productsPerPage = 6;
 
-    /* FILTER PRODUCTS */
-    const filteredProducts = catalogProducts.filter((p) => {
-
-        const brandMatch =
-            selectedBrand === "All" ||
-            p.brand === selectedBrand;
-
-        const availabilityMatch =
-            selectedAvailability === "All" ||
-            p.status === selectedAvailability;
-
-        const searchMatch =
-            p.name.toLowerCase().includes(search.toLowerCase()) ||
-            p.partNumber.toLowerCase().includes(search.toLowerCase()) ||
-            p.brand.toLowerCase().includes(search.toLowerCase());
-
-        return (
-            brandMatch &&
-            availabilityMatch &&
-            searchMatch
-        );
-    });
-
-    /* PAGINATION */
-    const indexOfLast = currentPage * productsPerPage;
-    const indexOfFirst = indexOfLast - productsPerPage;
-
-    const currentProducts = filteredProducts.slice(
-        indexOfFirst,
-        indexOfLast
+    /* ALL PRODUCTS */
+    const allProducts: Product[] = useMemo(
+        () => catalogProductPages.flat(),
+        []
     );
 
+    /* FILTER OPTIONS */
+    const manufacturerOptions = useMemo(
+        () =>
+            Array.from(
+                new Set(allProducts.map((p) => p.brand))
+            ).sort(),
+        [allProducts]
+    );
+
+    const availabilityOptions = useMemo(
+        () =>
+            Array.from(
+                new Set(
+                    allProducts
+                        .map((p) => p.status)
+                        .filter(Boolean)
+                )
+            ),
+        [allProducts]
+    );
+
+    /* FILTER PRODUCTS */
+    const filteredProducts = useMemo(() => {
+        return allProducts.filter((p) => {
+            const manufacturerMatch =
+                !manufacturer || p.brand === manufacturer;
+
+            const availabilityMatch =
+                !availability || p.status === availability;
+
+            const searchMatch =
+                p.name
+                    ?.toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                p.brand
+                    ?.toLowerCase()
+                    .includes(search.toLowerCase()) ||
+                p.partNumber
+                    ?.toLowerCase()
+                    .includes(search.toLowerCase());
+
+            return (
+                manufacturerMatch &&
+                availabilityMatch &&
+                searchMatch
+            );
+        });
+    }, [allProducts, manufacturer, availability, search]);
+
+    /* PAGINATION */
     const totalPages = Math.ceil(
         filteredProducts.length / productsPerPage
     );
 
-    /* RESET FILTERS */
+    const currentProducts = useMemo(() => {
+        const start = (currentPage - 1) * productsPerPage;
+        const end = start + productsPerPage;
+
+        return filteredProducts.slice(start, end);
+    }, [filteredProducts, currentPage]);
+
+    /* RESET */
     const resetFilters = () => {
-        setSelectedBrand("All");
-        setSelectedAvailability("All");
+        setManufacturer("");
+        setAvailability("");
         setSearch("");
         setCurrentPage(1);
     };
@@ -62,112 +138,84 @@ export default function ProductCategory() {
 
                 {/* FILTER SIDEBAR */}
                 <aside className="product-filter">
+                    <CardContent>
+                        <Typography variant="h6" sx={{ mb: 2 }}>
+                            Filters
+                        </Typography>
 
-                    <h3>Filters</h3>
+                        <Stack spacing={1}>
+                            {/* Manufacturer */}
+                            <TextField
+                                select
+                                label="Manufacturer"
+                                value={manufacturer}
+                                onChange={(e) => {
+                                    setManufacturer(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                            >
+                                <MenuItem value="">
+                                    All Manufacturers
+                                </MenuItem>
 
-                    {/* BRAND */}
-                    <div className="filter-group">
-                        <label>Manufacturer</label>
+                                {manufacturerOptions.map((option) => (
+                                    <MenuItem
+                                        key={option}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
 
-                        <select
-                            value={selectedBrand}
-                            onChange={(e) => {
-                                setSelectedBrand(e.target.value);
-                                setCurrentPage(1);
-                            }}
-                        >
-                            <option value="All">All</option>
+                            {/* Availability */}
+                            <TextField
+                                select
+                                label="Availability"
+                                value={availability}
+                                onChange={(e) => {
+                                    setAvailability(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                            >
+                                <MenuItem value="">
+                                    All Availability
+                                </MenuItem>
 
-                            <option value="Siemens">Siemens</option>
+                                {availabilityOptions.map((option) => (
+                                    <MenuItem
+                                        key={option}
+                                        value={option}
+                                    >
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </TextField>
 
-                            <option value="ABB">ABB</option>
+                            {/* Search */}
+                            <TextField
+                                label="Search"
+                                placeholder="Search parts"
+                                value={search}
+                                onChange={(e) => {
+                                    setSearch(e.target.value);
+                                    setCurrentPage(1);
+                                }}
+                            />
 
-                            <option value="Rockwell">Rockwell</option>
-
-                            <option value="Schneider">
-                                Schneider
-                            </option>
-
-                            <option value="FANUC">
-                                FANUC
-                            </option>
-
-                            <option value="Omron">
-                                Omron
-                            </option>
-
-                            <option value="Mitsubishi">
-                                Mitsubishi
-                            </option>
-
-                            <option value="Yaskawa">
-                                Yaskawa
-                            </option>
-                        </select>
-                    </div>
-
-                    {/* AVAILABILITY */}
-                    <div className="filter-group">
-                        <label>Availability</label>
-
-                        <select
-                            value={selectedAvailability}
-                            onChange={(e) => {
-                                setSelectedAvailability(
-                                    e.target.value
-                                );
-
-                                setCurrentPage(1);
-                            }}
-                        >
-                            <option value="All">
-                                All
-                            </option>
-
-                            <option value="In Stock">
-                                In Stock
-                            </option>
-
-                            <option value="Limited">
-                                Limited
-                            </option>
-
-                            <option value="Obsolete">
-                                Obsolete
-                            </option>
-                        </select>
-                    </div>
-
-                    {/* SEARCH */}
-                    <div className="filter-group filter-search">
-                        <input
-                            type="text"
-                            placeholder="Search products..."
-                            value={search}
-                            onChange={(e) => {
-                                setSearch(e.target.value);
-                                setCurrentPage(1);
-                            }}
-                        />
-                    </div>
-
-                    {/* RESET */}
-                    <div className="filter-reset">
-                        <button onClick={resetFilters}>
-                            Reset Filters
-                        </button>
-                    </div>
+                            <Button
+                                variant="text"
+                                onClick={resetFilters}
+                            >
+                                Reset filters
+                            </Button>
+                        </Stack>
+                    </CardContent>
                 </aside>
 
                 {/* PRODUCT LIST */}
-                <div className="product-list">
-
-                    {/* PRODUCTS */}
-                    <div className="product-grid">
-                        <CardProductItem
-                            products={currentProducts}
-                        />
-                    </div>
+                <div className="product-list"> 
+                    < ProductCard products={currentProducts} />
 
                     {/* EMPTY */}
                     {filteredProducts.length === 0 && (

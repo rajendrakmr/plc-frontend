@@ -54,12 +54,12 @@ export default function BrandSlider() {
             <div className="section-inner">
                 <div className="section-header">
                     <div>
-                        <span className="section-tag">
+                        {/* <span className="section-tag">
                          Trusted by 
-                        </span>
-                        {/* <h2 className="section-title">
-                            Authorized & Multi-Brand Sourcing
-                        </h2> */}
+                        </span> */}
+                        <h2 className="section-title">
+                           Trusted by 
+                        </h2>
                         {/* <p className="section-sub">
                             We stock and source parts from every major automation manufacturer worldwide.
                         </p> */}
